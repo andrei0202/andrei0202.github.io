@@ -29,9 +29,12 @@ html{color:#000;background:#222222;} a{cursor:pointer;} html,body,div,dl,dt,dd,u
    </ul> 
    
     <h3>💡 Enter your name</h3>
+	<br>
    <input  id="name"  value="Andrei handsome" type="text" size = "45" placeholder="Enter your name"> <br><br>
    
-
+	<h3 id="high"></h3>
+	<br>
+	<br>
    <a href="#" id="startButton">Starttt!!!</a> 
    
    <br> 
@@ -39,11 +42,10 @@ html{color:#000;background:#222222;} a{cursor:pointer;} html,body,div,dl,dt,dd,u
   </div> 
   <script type="text/javascript">
   
- 
-
-
+	
 Spacedots = new function(){
-  
+
+
   var isMobile = (navigator.userAgent.toLowerCase().indexOf('android') != -1) || (navigator.userAgent.toLowerCase().indexOf('iphone') != -1);
   
   var SCREEN_WIDTH = window.innerWidth;
@@ -68,6 +70,7 @@ Spacedots = new function(){
   
   var playing = false;
   var score = 0;
+  var highscore = 0;
   var time = 0;
   
   var velocity = { x: -1.5, y: 1 };
@@ -79,7 +82,14 @@ Spacedots = new function(){
     status = document.getElementById('status');
     message = document.getElementById('message');
     title = document.getElementById('title');
+
     startButton = document.getElementById('startButton');
+	
+	dis = '';
+	dis += "High Score: " + Math.round(localStorage.getItem("highscore"));
+	document.getElementById("high").innerHTML = dis;
+	
+
     
     if (canvas && canvas.getContext) {
       context = canvas.getContext('2d');
@@ -138,6 +148,19 @@ Spacedots = new function(){
     display = 'Game Over!' + ' ' + document.getElementById("name").value + ' '  + Math.round( score )  +  ' points' ;
     title.innerHTML = display;
 	
+	
+var highscore = localStorage.getItem("highscore");
+if(highscore !== null){
+    if (score > highscore) {
+        localStorage.setItem("highscore", score);      
+    }
+}
+else{
+    localStorage.setItem("highscore", score);
+}
+dis = '';
+	dis += "High Score: " + Math.round(localStorage.getItem("highscore"));
+	document.getElementById("high").innerHTML = dis;
 	
 	
 	
